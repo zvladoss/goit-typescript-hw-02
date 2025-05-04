@@ -3,8 +3,6 @@ import Modal from "react-modal";
 import s from "./ImageModal.module.css";
 import { UnsplashImage } from "../../types";
 
-Modal.setAppElement("#root");
-
 interface Props {
   data: UnsplashImage;
   onClose: () => void;
@@ -21,18 +19,14 @@ const ImageModal: FC<Props> = ({ data, onClose }) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) onClose();
-  };
-
   return (
     <Modal
-      isOpen
+      isOpen={true}
       onRequestClose={onClose}
       contentLabel="Image Modal"
       className={s.modal}
       overlayClassName={s.overlay}
-      onClick={handleOverlayClick}
+      shouldCloseOnOverlayClick={true}
     >
       <img
         src={urls.regular}
