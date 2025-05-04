@@ -1,38 +1,38 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import Modal from "react-modal";
 import s from "./ImageModal.module.css";
-Modal.setAppElement("#root");
-const ImageModal = ({ data, onClose }) => {
-  if (!data) return null;
+import { UnsplashImage } from "../../types";
 
+Modal.setAppElement("#root");
+
+interface Props {
+  data: UnsplashImage;
+  onClose: () => void;
+}
+
+const ImageModal: FC<Props> = ({ data, onClose }) => {
   const { urls, alt_description, user, likes } = data;
 
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleEsc);
-
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-    };
+    return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
   };
 
   return (
     <Modal
-      isOpen={true}
+      isOpen
       onRequestClose={onClose}
       contentLabel="Image Modal"
       className={s.modal}
       overlayClassName={s.overlay}
+      onClick={handleOverlayClick}
     >
       <img
         src={urls.regular}

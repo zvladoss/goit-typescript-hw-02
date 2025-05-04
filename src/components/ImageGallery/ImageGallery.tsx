@@ -1,6 +1,14 @@
+import { FC } from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
-const ImageGallery = ({ images, openModal }) => {
+import { UnsplashImage } from "../../types";
+
+interface Props {
+  images: UnsplashImage[];
+  openModal: (image: UnsplashImage) => void;
+}
+
+const ImageGallery: FC<Props> = ({ images, openModal }) => {
   return (
     <ul className={s.gallery}>
       {images.map((image) => (

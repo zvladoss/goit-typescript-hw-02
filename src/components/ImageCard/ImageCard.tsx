@@ -1,6 +1,13 @@
+import { FC } from "react";
 import s from "./ImageCard.module.css";
+import { UnsplashImage } from "../../types";
 
-const ImageCard = ({ image, openModal }) => {
+interface Props {
+  image: UnsplashImage;
+  openModal: (image: UnsplashImage) => void;
+}
+
+const ImageCard: FC<Props> = ({ image, openModal }) => {
   const { urls, alt_description } = image;
 
   return (
